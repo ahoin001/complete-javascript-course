@@ -23,7 +23,6 @@
 
 // First scoping example
 
-/*
 var a = 'Hello!';
 first();
 
@@ -36,9 +35,6 @@ function first() {
         console.log(a + b + c);
     }
 }
-*/
-
-
 
 // Example to show the differece between execution stack and scope chain
 
