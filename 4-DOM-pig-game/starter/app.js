@@ -18,6 +18,12 @@ globalScores = [0, 0];
 roundScore = 0;
 activePlayer = 0;
 
+// Clear all scores
+document.getElementById('current-0').innerHTML = 0;
+document.getElementById('score-0').innerHTML = 0;
+document.getElementById('current-1').innerHTML = 0;
+document.getElementById('score-1').innerHTML = 0;
+
 // Hide dice until we roll
 let theDice = document.querySelector('.dice');
 theDice.style.display = 'none';
