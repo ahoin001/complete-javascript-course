@@ -11,27 +11,32 @@ GAME RULES:
 
 let globalScores,
     roundScore,
-    activePlayer,
-    dice;
+    activePlayer;
 
 // Holds the score for both players
 globalScores = [0, 0];
 roundScore = 0;
 activePlayer = 0;
 
-// random number from 1-6 inclusive
-dice = Math.floor(Math.random() * 6) + 1;
-
-// Will be current 0 or 1 
-document.querySelector('#current-' + activePlayer).innerHTML = dice;
-
-/*
-Pointing to element and changing style directly
-*/
-// document.querySelector('.dice').style.display = 'none';
-
-/*
-Creating reference to element and then changing style
-*/
+// Hide dice until we roll
 let theDice = document.querySelector('.dice');
 theDice.style.display = 'none';
+
+let rollButton = document.querySelector('.btn-roll');
+
+rollButton.addEventListener('click', () => {
+
+    // 1. random number from 1-6 inclusive
+    dice = Math.floor(Math.random() * 6) + 1;
+
+    // 2. Display result in current score of active player
+    document.querySelector('#current-' + activePlayer).innerHTML = dice;
+
+    // 3. display proper dice image reflecting //#endregion
+    theDice.style.display = 'block';
+    theDice.src = 'dice-' + dice +'.png';
+
+    // 4.
+
+
+})
