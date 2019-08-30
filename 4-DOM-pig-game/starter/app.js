@@ -1,4 +1,4 @@
-/*
+/* DOM MANIPULATION PRACTICE
 GAME RULES:
 
 - The game has 2 players, playing in rounds
@@ -8,3 +8,30 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 
 */
+
+let globalScores,
+    roundScore,
+    activePlayer,
+    dice;
+
+// Holds the score for both players
+globalScores = [0, 0];
+roundScore = 0;
+activePlayer = 0;
+
+// random number from 1-6 inclusive
+dice = Math.floor(Math.random() * 6) + 1;
+
+// Will be current 0 or 1 
+document.querySelector('#current-' + activePlayer).innerHTML = dice;
+
+/*
+Pointing to element and changing style directly
+*/
+// document.querySelector('.dice').style.display = 'none';
+
+/*
+Creating reference to element and then changing style
+*/
+let theDice = document.querySelector('.dice');
+theDice.style.display = 'none';
