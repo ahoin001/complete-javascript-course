@@ -31,6 +31,7 @@ theDice.style.display = 'none';
 
 let rollButton = document.querySelector('.btn-roll');
 
+// Event listner for click on the roll button
 rollButton.addEventListener('click', () => {
 
     // 1. random number from 1-6 inclusive
@@ -40,7 +41,7 @@ rollButton.addEventListener('click', () => {
     theDice.style.display = 'block';
     theDice.src = 'dice-' + dice + '.png';
 
-    // 3.  
+    // 3. Roll Dice Functionaluty 
     if (dice !== 1) {
 
         // Add dice number to round score of that player whenever dice is'nt equal too 1
@@ -50,45 +51,38 @@ rollButton.addEventListener('click', () => {
     }
     else {
 
-        console.log('=========================== It equaled 1');
+        console.log('===========================');
+        console.log('Dice equaled 1');
+
         // Change active player if dice = 1
         if (activePlayer === 0) {
-
-            // Disable player panel 0 player-0-panel
-            const panelWeWillDeactivate = document.querySelector('.player-' + activePlayer + "-" + "panel");
-            panelWeWillDeactivate.classList.remove("active");
-            console.log('Removed active class from 0 ')
-
-            // Enable the active panel in player 1
-            activePlayer = 1;
-            let panelWeWillMakeActive = document.querySelector('.player-' + activePlayer + "-" + "panel");
-            panelWeWillMakeActive.classList.add("active");
-            console.log('Add active class to 1 ');
 
             // Reset round score on both sides
             roundScore = 0;
             document.querySelector('#current-0').innerHTML = roundScore;
             document.querySelector('#current-1').innerHTML = roundScore;
+
+            // Take active off 0 and activate it on 1
+            document.querySelector('.player-0-panel').classList.toggle('active');
+            document.querySelector('.player-1-panel').classList.toggle('active');
+
+            // Change active player
+            activePlayer = 1;
 
         }
         else if (activePlayer === 1) {
 
-            // Disable player panel 1 player-1-panel
-            let panelWeWillDeactivate = document.querySelector('player-' + activePlayer + "-" + "panel");
-            panelWeWillDeactivate.classList.remove("active");
-            console.log('Removed active class from 1 ')
-
-            // Enable the active panel in player 0
-            activePlayer = 0;
-            let panelWeWillMakeActive = document.querySelector('player-' + activePlayer + "-" + "panel");
-            panelWeWillMakeActive.classList.add("active");
-            console.log('Add active class to 0 ')
-
             // Reset round score on both sides
             roundScore = 0;
             document.querySelector('#current-0').innerHTML = roundScore;
             document.querySelector('#current-1').innerHTML = roundScore;
 
+            // Take active off 1 and activate it on 0
+            document.querySelector('.player-1-panel').classList.toggle('active');
+            document.querySelector('.player-0-panel').classList.toggle('active');
+
+            // Change active player
+            activePlayer = 0;
         }
 
     }
