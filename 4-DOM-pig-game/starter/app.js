@@ -20,7 +20,6 @@ let globalScores,
     roundScore,
     activePlayer;
 
-// Holds the score for both players
 globalScores = [0, 0];
 roundScore = 0;
 activePlayer = 0;
@@ -37,54 +36,49 @@ rollButton.addEventListener('click', () => {
     // 1. random number from 1-6 inclusive
     dice = Math.floor(Math.random() * 6) + 1;
 
-    // 2. Display Dice result
+    // 2. Display Dice result using random number
     theDice.style.display = 'block';
     theDice.src = 'dice-' + dice + '.png';
 
     // 3. Roll Dice Functionaluty 
     if (dice !== 1) {
 
-        // Add dice number to round score of that player whenever dice is'nt equal too 1
+        // Add dice number to round score of that player whenever dice isn't equal too 1
         roundScore += dice;
         document.querySelector('#current-' + activePlayer).innerHTML = roundScore;
 
     }
     else {
 
+        // if active = 0, change to 1, else keep it 0
+        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0
+
         console.log('===========================');
         console.log('Dice equaled 1');
-
-        // Change active player if dice = 1
-        if (activePlayer === 0) {
+        console.log(`Active player changed too Player ` + activePlayer);
 
             // Reset round score on both sides
             roundScore = 0;
             document.querySelector('#current-0').innerHTML = roundScore;
             document.querySelector('#current-1').innerHTML = roundScore;
 
-            // Take active off 0 and activate it on 1
+            // Toggle active off on one and on on the other 
             document.querySelector('.player-0-panel').classList.toggle('active');
             document.querySelector('.player-1-panel').classList.toggle('active');
 
-            // Change active player
-            activePlayer = 1;
-
-        }
-        else if (activePlayer === 1) {
-
-            // Reset round score on both sides
-            roundScore = 0;
-            document.querySelector('#current-0').innerHTML = roundScore;
-            document.querySelector('#current-1').innerHTML = roundScore;
-
-            // Take active off 1 and activate it on 0
-            document.querySelector('.player-1-panel').classList.toggle('active');
-            document.querySelector('.player-0-panel').classList.toggle('active');
-
-            // Change active player
-            activePlayer = 0;
-        }
+            // remove dice from display
+            theDice.style.display = "none";
 
     }
+
+})
+
+// Refeerence hold button
+let holdButton = document.querySelector('.btn-hold');
+
+holdButton.addEventListener('click',() => {
+    // Add current round score to global score of current player
+    // globalScores[activePlayer] += roundScore;
+    console.log('Hold button was clicked');
 
 })
