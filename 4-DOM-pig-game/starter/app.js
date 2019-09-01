@@ -50,24 +50,8 @@ rollButton.addEventListener('click', () => {
     }
     else {
 
-        // if active = 0, change to 1, else keep it 0
-        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0
-
-        console.log('===========================');
-        console.log('Dice equaled 1');
-        console.log(`Active player changed too Player ` + activePlayer);
-
-        // Reset round score on both sides
-        roundScore = 0;
-        document.querySelector('#current-0').innerHTML = roundScore;
-        document.querySelector('#current-1').innerHTML = roundScore;
-
-        // Toggle active off on one and on on the other 
-        document.querySelector('.player-0-panel').classList.toggle('active');
-        document.querySelector('.player-1-panel').classList.toggle('active');
-
-        // remove dice from display
-        theDice.style.display = "none";
+        // Change player after 3 seconds so they can see they rolled a 1
+        setTimeout(nextPlayer, 1000);
 
     }
 
@@ -86,31 +70,49 @@ holdButton.addEventListener('click', () => {
     document.querySelector(`#score-${activePlayer}`).innerHTML = globalScores[activePlayer];
 
     // Check if player won the game
-    if (globalScores[activePlayer] >= 100) {
+    if (globalScores[activePlayer] >= 10) {
 
         console.log(`Player ${activePlayer} won !`);
+        document.querySelector(`#name-${activePlayer}`).innerHTML = 'Winner!'
+
+        // remove dice from display
+        theDice.style.display = "none";
+
+        // Make active player the winner
+        document.querySelector(`.player-${activePlayer}-panel`).classList.add('winner');
 
 
     }
     else {
 
         console.log(`Points saved, now changing active player`)
-
-        // Toggle active off on one and on on the other 
-        document.querySelector('.player-0-panel').classList.toggle('active');
-        document.querySelector('.player-1-panel').classList.toggle('active');
-
-        // Reset round score on both sides
-        roundScore = 0;
-        document.querySelector('#current-0').innerHTML = roundScore;
-        document.querySelector('#current-1').innerHTML = roundScore;
-
-        // remove dice from display
-        theDice.style.display = "none";
-
-        // if active = 0, change to 1, else keep it 0
-        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0
+        nextPlayer();
 
     }
 
 })
+
+
+// Function used so we don't repeat code
+const nextPlayer = () => {
+
+    // if active = 0, change to 1, else keep it 0
+    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0
+
+    console.log('===========================');
+    console.log('Dice equaled 1');
+    console.log(`Active player changed too Player ` + activePlayer);
+
+    // Reset round score on both sides
+    roundScore = 0;
+    document.querySelector('#current-0').innerHTML = roundScore;
+    document.querySelector('#current-1').innerHTML = roundScore;
+
+    // Toggle active off on one and on on the other 
+    document.querySelector('.player-0-panel').classList.toggle('active');
+    document.querySelector('.player-1-panel').classList.toggle('active');
+
+    // remove dice from display
+    theDice.style.display = "none";
+
+}
