@@ -9,20 +9,14 @@ GAME RULES:
 
 */
 
-// Clear all scores
-document.getElementById('current-0').innerHTML = 0;
-document.getElementById('score-0').innerHTML = 0;
-document.getElementById('current-1').innerHTML = 0;
-document.getElementById('score-1').innerHTML = 0;
+
 
 // Global variables for use
 let globalScores,
     roundScore,
     activePlayer;
 
-globalScores = [0, 0];
-roundScore = 0;
-activePlayer = 0;
+newGame();
 
 // Hide dice until we roll
 let theDice = document.querySelector('.dice');
@@ -60,6 +54,7 @@ rollButton.addEventListener('click', () => {
 // Refeerence hold button
 let holdButton = document.querySelector('.btn-hold');
 
+// Event listner for click on the roll button
 holdButton.addEventListener('click', () => {
     console.log('Hold button was clicked');
 
@@ -72,15 +67,12 @@ holdButton.addEventListener('click', () => {
     // Check if player won the game
     if (globalScores[activePlayer] >= 10) {
 
-        console.log(`Player ${activePlayer} won !`);
-        document.querySelector(`#name-${activePlayer}`).innerHTML = 'Winner!'
-
         // remove dice from display
         theDice.style.display = "none";
 
         // Make active player the winner
         document.querySelector(`.player-${activePlayer}-panel`).classList.add('winner');
-
+        document.querySelector(`.player-${activePlayer}-panel`).classList.remove('active');
 
     }
     else {
@@ -92,6 +84,44 @@ holdButton.addEventListener('click', () => {
 
 })
 
+
+// Event listner for click on the new game button
+document.querySelector('.btn-new').addEventListener('click', newGame);
+
+// TODO Why does ES6 function not work here
+// const newGame = () => {
+
+function newGame() {
+    // Reset core mechanics to 0
+    globalScores = [0, 0];
+    roundScore = 0;
+    activePlayer = 0;
+
+    // Clear all scores
+    document.getElementById('current-0').innerHTML = 0;
+    document.getElementById('score-0').innerHTML = 0;
+    document.getElementById('current-1').innerHTML = 0;
+    document.getElementById('score-1').innerHTML = 0;
+
+    // Reset tags in case there was winner before pressing button
+    document.getElementById('name-0').innerHTML = 'Player 1';
+    document.getElementById('name-1').innerHTML = 'Player 2';
+
+    // Remove winner from both
+    document.querySelector(`.player-0-panel`).classList.remove('winner');
+    document.querySelector(`.player-1-panel`).classList.remove('winner');
+
+    // Remove active from both
+    document.querySelector(`.player-0-panel`).classList.remove('active');
+    document.querySelector(`.player-1-panel`).classList.remove('active');
+
+    // Remove dice from display
+    let theDice = document.querySelector('.dice');
+    theDice.style.display = 'none';
+
+    // Make first player add Player
+    document.querySelector(`.player-0-panel`).classList.add('active');
+}
 
 // Function used so we don't repeat code
 const nextPlayer = () => {
