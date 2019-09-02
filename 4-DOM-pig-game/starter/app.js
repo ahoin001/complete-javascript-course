@@ -15,21 +15,23 @@ GAME RULES:
 let globalScores,
     roundScore,
     activePlayer,
-    gameActive
+    gameActive;
 
 newGame();
 
 // Hide dice until we roll
 let theDice = document.querySelector('.dice');
-theDice.style.display = 'none';
+
 
 let rollButton = document.querySelector('.btn-roll');
 
 // Event listner for click on the roll button
 rollButton.addEventListener('click', () => {
 
-    // If state variable is true
+    // If game is still going (State Variable )
     if (gameActive) {
+
+        console.log('Game Active : ',gameActive)
 
         // 1. random number from 1-6 inclusive
         dice = Math.floor(Math.random() * 6) + 1;
@@ -55,8 +57,6 @@ rollButton.addEventListener('click', () => {
 
     }
 
-
-
 })
 
 // Refeerence hold button
@@ -64,31 +64,43 @@ let holdButton = document.querySelector('.btn-hold');
 
 // Event listner for click on the roll button
 holdButton.addEventListener('click', () => {
+   
     console.log('Hold button was clicked');
 
-    // Add current round score to global score of current player
-    globalScores[activePlayer] += roundScore;
+    if (gameActive) {
 
-    // Update UI To reflect update
-    document.querySelector(`#score-${activePlayer}`).innerHTML = globalScores[activePlayer];
+        console.log('Game Active : ',gameActive)
+        // Add current round score to global score of current player
+        globalScores[activePlayer] += roundScore;
 
-    // Check if player won the game
-    if (globalScores[activePlayer] >= 10) {
+        // Update UI To reflect update
+        document.querySelector(`#score-${activePlayer}`).innerHTML = globalScores[activePlayer];
 
-        // remove dice from display
-        theDice.style.display = "none";
+        // Check if player won the game
+        if (globalScores[activePlayer] >= 10) {
 
-        // Make active player the winner
-        document.querySelector(`.player-${activePlayer}-panel`).classList.add('winner');
-        document.querySelector(`.player-${activePlayer}-panel`).classList.remove('active');
+            // remove dice from display
+            theDice.style.display = "none";
+
+            // Make active player the winner
+            document.querySelector(`.player-${activePlayer}-panel`).classList.add('winner');
+            document.querySelector(`#name-${activePlayer}`).innerHTML = 'Winner';
+            document.querySelector(`.player-${activePlayer}-panel`).classList.remove('active');
+
+            // Game is complete since user won
+            gameActive = false;
+
+        }
+        else {
+
+            console.log(`Points saved, now changing active player`)
+            nextPlayer();
+
+        }
 
     }
-    else {
 
-        console.log(`Points saved, now changing active player`)
-        nextPlayer();
 
-    }
 
 })
 
@@ -100,6 +112,12 @@ document.querySelector('.btn-new').addEventListener('click', newGame);
 // const newGame = () => {
 
 function newGame() {
+
+    console.log('New game starting');
+
+    // Make game active
+    gameActive = true;
+
     // Reset core mechanics to 0
     globalScores = [0, 0];
     roundScore = 0;
