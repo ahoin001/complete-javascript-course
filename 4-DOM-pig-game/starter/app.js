@@ -14,7 +14,8 @@ GAME RULES:
 // Global variables for use
 let globalScores,
     roundScore,
-    activePlayer;
+    activePlayer,
+    gameActive
 
 newGame();
 
@@ -27,27 +28,34 @@ let rollButton = document.querySelector('.btn-roll');
 // Event listner for click on the roll button
 rollButton.addEventListener('click', () => {
 
-    // 1. random number from 1-6 inclusive
-    dice = Math.floor(Math.random() * 6) + 1;
+    // If state variable is true
+    if (gameActive) {
 
-    // 2. Display Dice result using random number
-    theDice.style.display = 'block';
-    theDice.src = 'dice-' + dice + '.png';
+        // 1. random number from 1-6 inclusive
+        dice = Math.floor(Math.random() * 6) + 1;
 
-    // 3. Roll Dice Functionaluty 
-    if (dice !== 1) {
+        // 2. Display Dice result using random number
+        theDice.style.display = 'block';
+        theDice.src = 'dice-' + dice + '.png';
 
-        // Add dice number to round score of that player whenever dice isn't equal too 1
-        roundScore += dice;
-        document.querySelector('#current-' + activePlayer).innerHTML = roundScore;
+        // 3. Roll Dice Functionaluty 
+        if (dice !== 1) {
+
+            // Add dice number to round score of that player whenever dice isn't equal too 1
+            roundScore += dice;
+            document.querySelector('#current-' + activePlayer).innerHTML = roundScore;
+
+        }
+        else {
+
+            // Change player after 3 seconds so they can see they rolled a 1
+            setTimeout(nextPlayer, 300);
+
+        }
 
     }
-    else {
 
-        // Change player after 3 seconds so they can see they rolled a 1
-        setTimeout(nextPlayer, 1000);
 
-    }
 
 })
 
