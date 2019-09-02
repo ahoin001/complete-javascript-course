@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 
-
+// TODO Come back and finish code challenges maybe
 
 // Global variables for use
 let globalScores,
