@@ -177,7 +177,8 @@ if (ex1) {
     // designerQuestion('jane');
     // designerQuestion('Mark');
     // designerQuestion('Mike');
-
+    // console.log(`================================================`)
+    // console.log(`WITHOUT CLOSURES`);
     // interviewQuestion('teacher')('Mark');
 
 }
@@ -244,7 +245,7 @@ if (ex1) {
 
     const interviewQuestion = (job) => {
 
-        // Function That will be returned for use, but still have access to job parameter
+        // Function That will be returned for use, but still always have access to job parameter outter function
         return function (name) {
 
             if (job === 'designer') {
@@ -262,11 +263,10 @@ if (ex1) {
 
         }
 
-        
-
     }
 
     interviewQuestion('nk')('Alex');
+    //  Same Function without closures
 
     // function interviewQuestion(job) {
     //     if (job === 'designer') {
@@ -285,3 +285,118 @@ if (ex1) {
     // 
 
 }
+
+// *****************************************************************
+//    Lecture: Bind Call Apply
+// *****************************************************************
+
+if (ex1) {
+    // // An object with its own function 'presentation'
+    // var john = {
+    //     name: 'John',
+    //     age: 26,
+    //     job: 'teacher',
+    //     presentation: function (style, timeOfDay) {
+    //         if (style === 'formal') {
+    //             console.log('Good ' + timeOfDay + ', Ladies and gentlemen! I\'m ' + this.name + ', I\'m a ' + this.job + ' and I\'m ' + this.age + ' years old.');
+    //         } else if (style === 'friendly') {
+    //             console.log('Hey! What\'s up? I\'m ' + this.name + ', I\'m a ' + this.job + ' and I\'m ' + this.age + ' years old. Have a nice ' + timeOfDay + '.');
+    //         }
+    //     }
+    // };
+
+    // // Another object that does not have the presenttation method
+    // var emily = {
+    //     name: 'Emily',
+    //     age: 35,
+    //     job: 'designer'
+    // };
+
+    // // John can call the method normally
+    // john.presentation('formal', 'morning');
+
+    // // Using Call, then passing in emily [So that 'this' in the method will now point to emily] 
+    // // emily can use the method
+    // john.presentation.call(emily, 'friendly', 'afternoon');
+
+    // // Apply is same as call , but arguments are an array 
+    // //john.presentation.apply(emily, ['friendly', 'afternoon']);
+
+    // // Bind : Returns a function with preset arguments, first argument is the 'this' variable
+    // var johnFriendly = john.presentation.bind(john, 'friendly');
+
+    // // Now the function returned with bind will only need one argument since Bind preset 
+    // // has the first argument set already
+    // johnFriendly('morning');
+    // johnFriendly('night');
+
+    // var emilyFormal = john.presentation.bind(emily, 'formal');
+    // emilyFormal('afternoon');
+
+
+    // // Another cool example
+    // var years = [1990, 1965, 1937, 2005, 1998];
+
+    // function arrayCalc(arr, fn) {
+
+    //     var arrRes = [];
+    //     for (var i = 0; i < arr.length; i++) {
+
+    //         // fn will always only accept 1 argument
+    //         arrRes.push(fn(arr[i]));
+
+    //     }
+
+    //     return arrRes;
+
+    // }
+
+    // function calculateAge(el) {
+    //     return 2016 - el;
+    // }
+
+    // // this function requires 2 arguments so we can't pass it in without bind
+    // function isFullAge(limit, el) {
+    //     return el >= limit;
+    // }
+
+    // // Calculate age only needs one Argument so it can be passed in normally
+    // var ages = arrayCalc(years, calculateAge);
+
+    // // using bind, isFullAge will have its first argument preset whenever its called, 
+    // // and full age will only need one argument
+    // // The preset argument is the first argument '20'
+    // var fullJapan = arrayCalc(ages, isFullAge.bind(this, 20));
+
+    // // Returns ages from the array that had birth years
+    // console.log(ages);
+
+    // // Returns if person is full age in Japan Law
+    // console.log(fullJapan);
+}
+
+/////////////////////////////
+// CODING CHALLENGE
+
+
+/*
+--- Let's build a fun quiz game in the console! ---
+
+1. Build a function constructor called Question to describe a question. A question should include:
+a) question itself
+b) the answers from which the player can choose the correct one (choose an adequate data structure here, array, object, etc.)
+c) correct answer (I would use a number for this)
+
+2. Create a couple of questions using the constructor
+
+3. Store them all inside an array
+
+4. Select one random question and log it on the console, together with the possible answers (each question should have a number) (Hint: write a method for the Question objects for this task).
+
+5. Use the 'prompt' function to ask the user for the correct answer. The user should input the number of the correct answer such as you displayed it on Task 4.
+
+6. Check if the answer is correct and print to the console whether the answer is correct ot nor (Hint: write another method for this).
+
+7. Suppose this code would be a plugin for other programmers to use in their code. So make sure that all your code is private and doesn't interfere with the other programmers code (Hint: we learned a special technique to do exactly that).
+*/
+
